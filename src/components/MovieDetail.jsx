@@ -1,7 +1,15 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
 
 function MovieDetail() {
-  const [movie, setMovie] = useState({})
+  const [movie, setMovie] = useState({});
+  const { movie_id } = useParams();
+
+  useEffect(() => {
+    fetch(`http://localhost:9000/movies/${movie_id}`)
+      .then((res) => res.json())
+      .then((data) => setMovie(data));
+  }, []);
 
   return (
     <div className="movie-detail container">
@@ -20,7 +28,7 @@ function MovieDetail() {
         </div>
       </div>
     </div>
-  )
+  );
 }
 
-export default MovieDetail
+export default MovieDetail;
